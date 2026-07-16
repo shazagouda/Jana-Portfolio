@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jana Essam Ewis — Spanish Translator &amp; Language Teacher</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Source+Sans+3:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink:#1c1c1c;
+    --navy:#152238;
+    --navy-deep:#0d1626;
+    --sand:#ece3cd;
+    --sand-light:#f5efe1;
+    --gold:#b3872f;
+    --gold-light:#d9ac52;
+    --cobalt:#2c4a7c;
+    --clay:#9c5233;
+    --line:rgba(21,34,56,0.14);
+    --line-on-navy:rgba(236,227,205,0.18);
+  }
+
+  *{ box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--sand-light);
+    color:var(--ink);
+    font-family:'Source Sans 3', sans-serif;
+    font-size:1.02rem;
+    line-height:1.65;
+  }
+
+  h1,h2,h3,h4,.display-face{
+    font-family:'Fraunces', serif;
+    letter-spacing:-0.01em;
+  }
+
+  .mono{
+    font-family:'JetBrains Mono', monospace;
+    letter-spacing:0.04em;
+  }
+
+  a{ color:inherit; }
+
+  ::selection{ background:var(--gold-light); color:var(--navy-deep); }
+
+  /* ---------- shared star-lattice motif ---------- */
+  .lattice-bg{
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23ece3cd' stroke-opacity='0.10' stroke-width='1'%3E%3Crect x='30' y='30' width='60' height='60' transform='rotate(45 60 60)'/%3E%3Crect x='30' y='30' width='60' height='60'/%3E%3Ccircle cx='60' cy='60' r='6' /%3E%3C/g%3E%3C/svg%3E");
+    background-repeat:repeat;
+  }
+  .lattice-bg-dark{
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23152238' stroke-opacity='0.07' stroke-width='1'%3E%3Crect x='30' y='30' width='60' height='60' transform='rotate(45 60 60)'/%3E%3Crect x='30' y='30' width='60' height='60'/%3E%3Ccircle cx='60' cy='60' r='6' /%3E%3C/g%3E%3C/svg%3E");
+    background-repeat:repeat;
+  }
+
+  .star-mark{
+    display:inline-block; width:14px; height:14px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cg fill='none' stroke='%23b3872f' stroke-width='2.4'%3E%3Crect x='10' y='10' width='20' height='20' transform='rotate(45 20 20)'/%3E%3Crect x='10' y='10' width='20' height='20'/%3E%3C/g%3E%3C/svg%3E");
+    background-size:contain; background-repeat:no-repeat;
+  }
+
+  /* ---------- translation-pair headers (signature element) ---------- */
+  .pair-heading{
+    display:flex;
+    align-items:baseline;
+    gap:1rem;
+    margin-bottom:2.6rem;
+  }
+  .pair-heading .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--gold);
+    white-space:nowrap;
+  }
+  .pair-heading h2{
+    font-size:clamp(1.7rem, 3vw, 2.4rem);
+    font-weight:500;
+    margin:0;
+    color:var(--navy);
+  }
+  .pair-heading .es{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:clamp(1.1rem, 2vw, 1.5rem);
+    color:var(--clay);
+    white-space:nowrap;
+  }
+  .pair-heading .rule{
+    flex:1;
+    height:1px;
+    background:var(--line);
+    margin-bottom:0.5rem;
+  }
+  @media (max-width:576px){
+    .pair-heading{ flex-wrap:wrap; }
+    .pair-heading .rule{ display:none; }
+  }
+
+  /* ---------- nav ---------- */
+  .navbar{
+    background:rgba(21,34,56,0.94);
+    backdrop-filter:blur(6px);
+    padding-top:0.85rem; padding-bottom:0.85rem;
+    border-bottom:1px solid var(--line-on-navy);
+  }
+  .navbar-brand{
+    font-family:'Fraunces', serif;
+    font-size:1.1rem;
+    color:var(--sand-light) !important;
+  }
+  .navbar-brand .mono{ color:var(--gold-light); font-size:0.7rem; display:block; margin-top:-2px;}
+  .nav-link{
+    font-size:0.85rem;
+    letter-spacing:0.03em;
+    color:rgba(236,227,205,0.72) !important;
+    padding:0.4rem 0.9rem !important;
+    position:relative;
+  }
+  .nav-link.active, .nav-link:hover{ color:var(--sand-light) !important; }
+  .nav-link.active::after{
+    content:"";
+    position:absolute; left:0.9rem; right:0.9rem; bottom:0.1rem;
+    height:2px; background:var(--gold);
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:var(--sand-light);
+    padding-top:9rem;
+    padding-bottom:6rem;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero .kicker{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:var(--gold-light);
+  }
+  .hero h1{
+    font-size:clamp(2.4rem, 6vw, 4.1rem);
+    font-weight:500;
+    line-height:1.06;
+    margin:0.7rem 0 1.2rem;
+  }
+  #roleline{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:500;
+    color:var(--gold-light);
+    min-height:1.6em;
+    display:inline-block;
+    border-right:2px solid var(--gold-light);
+    padding-right:6px;
+  }
+  .hero p.lead-copy{
+    color:rgba(236,227,205,0.82);
+    max-width:640px;
+    font-size:1.08rem;
+  }
+  .hero-stats{
+    margin-top:3rem;
+    border-top:1px solid var(--line-on-navy);
+    padding-top:1.8rem;
+  }
+  .hero-stats .stat-num{
+    font-family:'Fraunces', serif;
+    font-size:2.1rem;
+    font-weight:500;
+    color:var(--sand-light);
+    line-height:1;
+  }
+  .hero-stats .stat-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.7rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:rgba(236,227,205,0.55);
+    margin-top:0.4rem;
+  }
+  .btn-gold{
+    background:var(--gold);
+    border:1px solid var(--gold);
+    color:var(--navy-deep);
+    font-weight:600;
+    padding:0.65rem 1.5rem;
+    font-size:0.92rem;
+  }
+  .btn-gold:hover{ background:var(--gold-light); border-color:var(--gold-light); color:var(--navy-deep); }
+  .btn-outline-sand{
+    border:1px solid rgba(236,227,205,0.45);
+    color:var(--sand-light);
+    padding:0.65rem 1.5rem;
+    font-size:0.92rem;
+  }
+  .btn-outline-sand:hover{ border-color:var(--sand-light); color:var(--sand-light); background:rgba(236,227,205,0.06); }
+
+  section{ padding:5.5rem 0; }
+  .section-alt{ background:var(--sand); }
+
+  /* ---------- about ---------- */
+  .about-lede{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:1.4rem;
+    line-height:1.5;
+    color:var(--navy);
+  }
+  .about-lede .es-inline{
+    font-style:italic;
+    color:var(--clay);
+  }
+
+  /* ---------- strengths ---------- */
+  .strength-card{
+    background:#fff;
+    border:1px solid var(--line);
+    padding:1.6rem 1.5rem;
+    height:100%;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .strength-card:hover{ transform:translateY(-4px); box-shadow:0 12px 24px rgba(21,34,56,0.08); }
+  .strength-card .num{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.75rem;
+    color:var(--gold);
+  }
+  .strength-card h3{
+    font-size:1.08rem;
+    font-weight:500;
+    margin:0.5rem 0 0.5rem;
+    color:var(--navy);
+  }
+  .strength-card p{ font-size:0.93rem; color:#4a4a4a; margin:0; }
+
+  /* ---------- skills ---------- */
+  .skill-tabs .nav-link{
+    color:var(--navy) !important;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    border:1px solid var(--line);
+    border-radius:0;
+    margin-right:0.5rem;
+    background:#fff;
+  }
+  .skill-tabs .nav-link.active{
+    background:var(--navy);
+    color:var(--sand-light) !important;
+    border-color:var(--navy);
+  }
+  .skill-row{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:0.7rem 0;
+    border-bottom:1px solid var(--line);
+    font-size:0.95rem;
+  }
+  .skill-row:last-child{ border-bottom:none; }
+  .skill-row i{ color:var(--gold); margin-right:0.6rem; }
+
+  /* ---------- timeline ---------- */
+  .timeline{ position:relative; padding-left:2.4rem; }
+  .timeline::before{
+    content:""; position:absolute; left:6px; top:6px; bottom:6px; width:1px;
+    background:var(--line);
+  }
+  .timeline-item{ position:relative; padding-bottom:2.4rem; }
+  .timeline-item:last-child{ padding-bottom:0; }
+  .timeline-item::before{
+    content:""; position:absolute; left:-2.4rem; top:4px; width:11px; height:11px;
+    background:var(--gold); border:2px solid var(--sand-light);
+    box-shadow:0 0 0 1px var(--gold);
+  }
+  .timeline-item .when{
+    font-family:'JetBrains Mono', monospace; font-size:0.75rem; color:var(--clay); letter-spacing:0.04em;
+  }
+  .timeline-item h3{ font-size:1.15rem; font-weight:500; color:var(--navy); margin:0.3rem 0 0.6rem; }
+  .timeline-item ul{ padding-left:1.1rem; margin:0; font-size:0.94rem; color:#3d3d3d; }
+  .timeline-item li{ margin-bottom:0.35rem; }
+  .badge-top{
+    display:inline-block; margin-top:0.7rem;
+    font-family:'JetBrains Mono', monospace; font-size:0.7rem; letter-spacing:0.05em;
+    color:var(--navy); border:1px solid var(--navy); padding:0.25rem 0.6rem;
+  }
+
+  /* ---------- education ---------- */
+  .edu-card{
+    background:var(--navy); color:var(--sand-light);
+    padding:2.4rem; position:relative; overflow:hidden;
+  }
+  .edu-card .gpa-num{
+    font-family:'Fraunces', serif; font-size:3.2rem; font-weight:500; color:var(--gold-light); line-height:1;
+  }
+  .edu-card .gpa-label{ font-family:'JetBrains Mono', monospace; font-size:0.72rem; letter-spacing:0.08em; color:rgba(236,227,205,0.6); text-transform:uppercase; }
+  .edu-card hr{ border-color:var(--line-on-navy); }
+  .coursework-tag{
+    display:inline-block; border:1px solid rgba(236,227,205,0.3);
+    font-size:0.78rem; padding:0.3rem 0.7rem; margin:0.25rem 0.35rem 0 0;
+    font-family:'JetBrains Mono', monospace;
+  }
+
+  /* ---------- languages ---------- */
+  .lang-block{ margin-bottom:1.6rem; }
+  .lang-block .top-row{ display:flex; justify-content:space-between; font-size:0.95rem; margin-bottom:0.4rem; }
+  .lang-block .top-row .name{ font-weight:600; color:var(--navy); }
+  .lang-block .top-row .level{ font-family:'JetBrains Mono', monospace; font-size:0.75rem; color:var(--clay); }
+  .lang-track{ height:6px; background:var(--line); width:100%; overflow:hidden; }
+  .lang-fill{ height:100%; background:linear-gradient(90deg, var(--cobalt), var(--gold)); width:0%; transition:width 1.1s ease; }
+
+  /* ---------- interests ---------- */
+  .interest-pill{
+    border:1px solid var(--line); padding:0.55rem 1.1rem; font-size:0.9rem;
+    display:inline-flex; align-items:center; gap:0.5rem; margin:0.3rem 0.4rem 0.3rem 0;
+    background:#fff;
+  }
+  .interest-pill i{ color:var(--gold); }
+
+  /* ---------- contact ---------- */
+  .contact-section{ background:var(--navy); color:var(--sand-light); }
+  .contact-section .form-control{
+    background:transparent; border:none; border-bottom:1px solid var(--line-on-navy);
+    color:var(--sand-light); border-radius:0; padding-left:0; font-size:0.98rem;
+  }
+  .contact-section .form-control::placeholder{ color:rgba(236,227,205,0.4); }
+  .contact-section .form-control:focus{
+    background:transparent; box-shadow:none; border-bottom-color:var(--gold-light); color:var(--sand-light);
+  }
+  .contact-section label{
+    font-family:'JetBrains Mono', monospace; font-size:0.7rem; letter-spacing:0.08em;
+    text-transform:uppercase; color:rgba(236,227,205,0.55); margin-bottom:0.5rem;
+  }
+  .contact-info-item{ display:flex; gap:0.9rem; align-items:flex-start; margin-bottom:1.5rem; }
+  .contact-info-item i{ color:var(--gold-light); font-size:1.1rem; margin-top:0.15rem; }
+  .contact-info-item .label{ font-family:'JetBrains Mono', monospace; font-size:0.7rem; letter-spacing:0.06em; color:rgba(236,227,205,0.5); text-transform:uppercase; }
+  .contact-info-item .val{ font-size:1rem; }
+  #form-status{ font-size:0.88rem; min-height:1.4em; }
+
+  footer{
+    background:var(--navy-deep); color:rgba(236,227,205,0.55);
+    padding:2rem 0; font-size:0.82rem;
+  }
+
+  /* reveal-on-scroll */
+  .reveal{ opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .reveal{ opacity:1; transform:none; transition:none; }
+    .lang-fill{ transition:none; }
+  }
+
+  /* back to top */
+  #toTop{
+    position:fixed; right:1.4rem; bottom:1.4rem; width:42px; height:42px;
+    background:var(--navy); color:var(--sand-light); border:none;
+    display:flex; align-items:center; justify-content:center; z-index:1000;
+    opacity:0; pointer-events:none; transition:opacity .25s ease;
+  }
+  #toTop.show{ opacity:1; pointer-events:auto; }
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#home">
+      Jana Ewis
+      <span class="mono">TRANSLATOR &middot; TEACHER</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain" style="border-color:rgba(236,227,205,0.3);">
+      <i class="bi bi-list text-light fs-3"></i>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navMain">
+      <ul class="navbar-nav" id="navList">
+        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#strengths">Strengths</a></li>
+        <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+        <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
+        <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
+        <li class="nav-item"><a class="nav-link" href="#languages">Languages</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero lattice-bg" id="home">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-9">
+        <div class="kicker">Giza, Egypt &nbsp;/&nbsp; Faculty of Languages and Translation, MUST</div>
+        <h1>Jana Essam Ewis</h1>
+        <div class="mb-3"><span id="roleline">Traductora de español</span></div>
+        <p class="lead-copy">A recent Spanish-department graduate who works across Arabic, Spanish, and English &mdash; translating, teaching, and guiding with the same standard of accuracy. Trained in the classroom and in the field, from lecture halls to the courtyards of Cairo's museums and palaces.</p>
+        <div class="d-flex gap-3 flex-wrap mt-4">
+          <a href="#contact" class="btn btn-gold">Get in touch</a>
+          <a href="#experience" class="btn btn-outline-sand">View experience</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row hero-stats">
+      <div class="col-6 col-md-3">
+        <div class="stat-num" data-counter data-target="3.74" data-decimals="2">0.00</div>
+        <div class="stat-label">GPA / 4.00</div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Working languages</div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-num">2026</div>
+        <div class="stat-label">Graduation year</div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-num">Excellent</div>
+        <div class="stat-label">Degree classification</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= ABOUT ================= -->
+<section id="about">
+  <div class="container">
+    <div class="pair-heading reveal">
+      <span class="eyebrow">01 / About</span>
+      <div class="rule"></div>
+      <h2>Profile</h2>
+      <span class="es">Perfil</span>
+    </div>
+    <div class="row">
+      <div class="col-lg-8">
+        <p class="about-lede reveal">Trilingual by training and by habit &mdash; <span class="es-inline">nativa</span> in Arabic, advanced in Spanish and English &mdash; and precise about the difference between a word that is close enough and one that is right.</p>
+        <p class="mt-4 reveal" style="max-width:680px; color:#3d3d3d;">
+          Jana graduated with an Excellent grade and a 3.74 GPA from the Spanish Department at Misr University for Science and Technology, where coursework in translation, applied linguistics, and language-teaching methodology was paired with hands-on tourist-guidance training at Cairo's historical sites. That combination &mdash; academic discipline plus client-facing fieldwork &mdash; is the throughline of her work: translation that respects the source, teaching that adapts to the learner, and guidance that holds up under real, unscripted conversation.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STRENGTHS ================= -->
+<section id="strengths" class="section-alt lattice-bg-dark">
+  <div class="container">
+    <div class="pair-heading reveal">
+      <span class="eyebrow">02 / Strengths</span>
+      <div class="rule"></div>
+      <h2>Key strengths</h2>
+      <span class="es">Fortalezas</span>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-3">
+        <div class="strength-card reveal">
+          <div class="num">01</div>
+          <h3>Trilingual accuracy</h3>
+          <p>Arabic, Spanish, and English translation and interpretation, held to the same standard of precision in every direction.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="strength-card reveal">
+          <div class="num">02</div>
+          <h3>Academic discipline</h3>
+          <p>Excellent-grade graduate, 3.74 GPA, built on consistency across four years of coursework.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="strength-card reveal">
+          <div class="num">03</div>
+          <h3>Field-tested communication</h3>
+          <p>Practical, client-facing training in tourist guidance &mdash; language skills tested against real visitors, not only exams.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="strength-card reveal">
+          <div class="num">04</div>
+          <h3>Fast adaptation</h3>
+          <p>Comfortable picking up new environments, tools, and professional standards quickly and reliably under deadline pressure.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SKILLS ================= -->
+<section id="skills">
+  <div class="container">
+    <div class="pair-heading reveal">
+      <span class="eyebrow">03 / Skills</span>
+      <div class="rule"></div>
+      <h2>Core skills</h2>
+      <span class="es">Competencias</span>
+    </div>
+
+    <ul class="nav skill-tabs mb-4 reveal" id="skillTabs">
+      <li class="nav-item"><button class="nav-link active" data-tab="language">Language &amp; Translation</button></li>
+      <li class="nav-item"><button class="nav-link" data-tab="professional">Professional</button></li>
+      <li class="nav-item"><button class="nav-link" data-tab="technical">Technical</button></li>
+    </ul>
+
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="skill-panel" data-panel="language">
+          <div class="skill-row"><span><i class="bi bi-translate"></i>Spanish&ndash;Arabic and Arabic&ndash;Spanish translation</span></div>
+          <div class="skill-row"><span><i class="bi bi-easel"></i>Spanish language teaching and instruction</span></div>
+          <div class="skill-row"><span><i class="bi bi-mic"></i>Simultaneous and on-site interpretation basics</span></div>
+          <div class="skill-row"><span><i class="bi bi-people"></i>Cross-cultural communication</span></div>
+        </div>
+        <div class="skill-panel d-none" data-panel="professional">
+          <div class="skill-row"><span><i class="bi bi-chat-dots"></i>Written and verbal communication</span></div>
+          <div class="skill-row"><span><i class="bi bi-clock"></i>Time management and organization</span></div>
+          <div class="skill-row"><span><i class="bi bi-people-fill"></i>Teamwork and collaboration</span></div>
+          <div class="skill-row"><span><i class="bi bi-lightbulb"></i>Problem solving and adaptability</span></div>
+          <div class="skill-row"><span><i class="bi bi-search"></i>Attention to detail</span></div>
+          <div class="skill-row"><span><i class="bi bi-headset"></i>Customer service orientation</span></div>
+          <div class="skill-row"><span><i class="bi bi-hourglass-split"></i>Working reliably under pressure</span></div>
+        </div>
+        <div class="skill-panel d-none" data-panel="technical">
+          <div class="skill-row"><span><i class="bi bi-file-earmark-word"></i>Microsoft Word, PowerPoint, and Excel</span></div>
+          <div class="skill-row"><span><i class="bi bi-google"></i>Google Workspace &mdash; Docs, Sheets, Slides</span></div>
+          <div class="skill-row"><span><i class="bi bi-envelope"></i>Internet research and email correspondence</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EXPERIENCE ================= -->
+<section id="experience" class="section-alt lattice-bg-dark">
+  <div class="container">
+    <div class="pair-heading reveal">
+      <span class="eyebrow">04 / Experience</span>
+      <div class="rule"></div>
+      <h2>Training &amp; experience</h2>
+      <span class="es">Formaci&oacute;n</span>
+    </div>
+    <div class="row">
+      <div class="col-lg-9">
+        <div class="timeline">
+          <div class="timeline-item reveal">
+            <div class="when">2026</div>
+            <h3>Tourist Guidance Training Program &mdash; Spanish Language Track</h3>
+            <p class="mb-2" style="font-size:0.9rem; color:#666;">Nefrt Training Company</p>
+            <ul>
+              <li>Completed specialized theoretical training in tour operations, transfer management, and tour leadership for international visitors.</li>
+              <li>Delivered hands-on guidance sessions in Spanish at major historical and cultural landmarks across Cairo, including religious complexes, palaces, and museums.</li>
+              <li>Trained in welcoming and accompanying Spanish-speaking tourist groups throughout their stay in Egypt, with a focus on visitor experience.</li>
+            </ul>
+            <span class="badge-top">Selected for advanced practical rotations</span>
+          </div>
+          <div class="timeline-item reveal">
+            <div class="when">2022 &ndash; 2026</div>
+            <h3>Bachelor's Coursework &mdash; Spanish Translation Track</h3>
+            <p class="mb-2" style="font-size:0.9rem; color:#666;">Misr University for Science and Technology</p>
+            <ul>
+              <li>Four years of applied study across translation, linguistics, cross-cultural communication, and language-teaching methodology.</li>
+              <li>Built the foundation for both written translation work and classroom instruction.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EDUCATION ================= -->
+<section id="education">
+  <div class="container">
+    <div class="pair-heading reveal">
+      <span class="eyebrow">05 / Education</span>
+      <div class="rule"></div>
+      <h2>Education</h2>
+      <span class="es">Educaci&oacute;n</span>
+    </div>
+    <div class="row">
+      <div class="col-lg-10">
+        <div class="edu-card lattice-bg reveal">
+          <div class="row align-items-center">
+            <div class="col-md-8">
+              <h3 class="h4 mb-1" style="color:var(--sand-light);">Bachelor's Degree in Languages and Translation</h3>
+              <p class="mb-1" style="color:rgba(236,227,205,0.75);">Spanish Department &mdash; Misr University for Science and Technology (MUST)</p>
+              <p class="mono mb-0" style="font-size:0.78rem; color:rgba(236,227,205,0.55);">GRADUATION YEAR 2026 &nbsp;&middot;&nbsp; GRADE: EXCELLENT</p>
+            </div>
+            <div class="col-md-4 text-md-end mt-4 mt-md-0">
+              <div class="gpa-num" data-counter data-target="3.74" data-decimals="2">0.00</div>
+              <div class="gpa-label">GPA out of 4.00</div>
+            </div>
+          </div>
+          <hr class="my-4">
+          <p class="mono mb-2" style="font-size:0.72rem; color:rgba(236,227,205,0.55);">RELEVANT COURSEWORK</p>
+          <div>
+            <span class="coursework-tag">Spanish Translation</span>
+            <span class="coursework-tag">Applied Linguistics</span>
+            <span class="coursework-tag">Cross-Cultural Communication</span>
+            <span class="coursework-tag">Language Teaching Methodology</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LANGUAGES ================= -->
+<section id="languages" class="section-alt lattice-bg-dark">
+  <div class="container">
+    <div class="pair-heading reveal">
+      <span class="eyebrow">06 / Languages</span>
+      <div class="rule"></div>
+      <h2>Languages</h2>
+      <span class="es">Idiomas</span>
+    </div>
+    <div class="row">
+      <div class="col-lg-7">
+        <div class="lang-block reveal">
+          <div class="top-row"><span class="name">Arabic</span><span class="level">NATIVE</span></div>
+          <div class="lang-track"><div class="lang-fill" data-fill="100"></div></div>
+        </div>
+        <div class="lang-block reveal">
+          <div class="top-row"><span class="name">Spanish</span><span class="level">ADVANCED</span></div>
+          <div class="lang-track"><div class="lang-fill" data-fill="85"></div></div>
+        </div>
+        <div class="lang-block reveal">
+          <div class="top-row"><span class="name">English</span><span class="level">ADVANCED</span></div>
+          <div class="lang-track"><div class="lang-fill" data-fill="85"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= INTERESTS ================= -->
+<section id="interests">
+  <div class="container">
+    <div class="pair-heading reveal">
+      <span class="eyebrow">07 / Interests</span>
+      <div class="rule"></div>
+      <h2>Interests</h2>
+      <span class="es">Intereses</span>
+    </div>
+    <div class="reveal">
+      <span class="interest-pill"><i class="bi bi-arrow-left-right"></i>Translation &amp; localization</span>
+      <span class="interest-pill"><i class="bi bi-mortarboard"></i>Language teaching</span>
+      <span class="interest-pill"><i class="bi bi-compass"></i>Tourism &amp; cultural exchange</span>
+      <span class="interest-pill"><i class="bi bi-globe2"></i>Learning new languages</span>
+      <span class="interest-pill"><i class="bi bi-book"></i>Reading &amp; self-development</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact" class="contact-section lattice-bg">
+  <div class="container">
+    <div class="pair-heading reveal">
+      <span class="eyebrow">08 / Contact</span>
+      <div class="rule"></div>
+      <h2 style="color:var(--sand-light);">Get in touch</h2>
+      <span class="es">Contacto</span>
+    </div>
+
+    <div class="row g-5">
+      <div class="col-lg-5 reveal">
+        <div class="contact-info-item">
+          <i class="bi bi-envelope"></i>
+          <div>
+            <div class="label">Email</div>
+            <div class="val"><a href="mailto:jannaessam61@gmail.com">jannaessam61@gmail.com</a></div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <i class="bi bi-telephone"></i>
+          <div>
+            <div class="label">Phone</div>
+            <div class="val"><a href="tel:+201092698043">+20 109 269 8043</a></div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <i class="bi bi-geo-alt"></i>
+          <div>
+            <div class="label">Location</div>
+            <div class="val">Giza, Egypt</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-7 reveal">
+        <form id="contactForm" novalidate>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label for="cf-name">Name</label>
+              <input type="text" class="form-control" id="cf-name" required placeholder="Your name">
+            </div>
+            <div class="col-md-6">
+              <label for="cf-email">Email</label>
+              <input type="email" class="form-control" id="cf-email" required placeholder="you@example.com">
+            </div>
+            <div class="col-12">
+              <label for="cf-subject">Subject</label>
+              <input type="text" class="form-control" id="cf-subject" required placeholder="What is this about?">
+            </div>
+            <div class="col-12">
+              <label for="cf-message">Message</label>
+              <textarea class="form-control" id="cf-message" rows="4" required placeholder="Write your message"></textarea>
+            </div>
+            <div class="col-12 d-flex align-items-center gap-3 mt-2">
+              <button type="submit" class="btn btn-gold">Send message</button>
+              <span id="form-status"></span>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container d-flex flex-wrap justify-content-between gap-2">
+    <span>&copy; <span id="year"></span> Jana Essam Ewiss</span>
+    <span class="mono">GIZA, EGYPT</span>
+  </div>
+</footer>
+
+<button id="toTop" aria-label="Back to top"><i class="bi bi-arrow-up"></i></button>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ---------- rotating role line ---------- */
+(function(){
+  var roles = ["Traductora de espa\u00f1ol", "Spanish Language Teacher", "\u0645\u062f\u0631\u0651\u0633\u0629 \u0648\u0645\u062a\u0631\u062c\u0645\u0629 \u0644\u063a\u0629 \u0625\u0633\u0628\u0627\u0646\u064a\u0629", "Tourist Guidance Trainee"];
+  var el = document.getElementById('roleline');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduceMotion){ el.textContent = roles[0]; }
+  else{
+    var ri = 0, ci = 0, deleting = false;
+    function tick(){
+      var word = roles[ri];
+      if(!deleting){
+        ci++;
+        el.textContent = word.slice(0, ci);
+        if(ci === word.length){ deleting = true; setTimeout(tick, 1600); return; }
+      } else {
+        ci--;
+        el.textContent = word.slice(0, ci);
+        if(ci === 0){ deleting = false; ri = (ri + 1) % roles.length; }
+      }
+      setTimeout(tick, deleting ? 45 : 75);
+    }
+    tick();
+  }
+})();
+
+/* ---------- scroll spy nav ---------- */
+(function(){
+  var links = document.querySelectorAll('#navList .nav-link');
+  var sections = Array.from(links).map(function(l){ return document.querySelector(l.getAttribute('href')); }).filter(Boolean);
+  function onScroll(){
+    var pos = window.scrollY + 140;
+    var current = sections[0];
+    sections.forEach(function(s){ if(s.offsetTop <= pos) current = s; });
+    links.forEach(function(l){
+      l.classList.toggle('active', l.getAttribute('href') === '#' + current.id);
+    });
+    var toTop = document.getElementById('toTop');
+    toTop.classList.toggle('show', window.scrollY > 600);
+  }
+  window.addEventListener('scroll', onScroll);
+  onScroll();
+})();
+
+document.getElementById('toTop').addEventListener('click', function(){
+  window.scrollTo({top:0, behavior:'smooth'});
+});
+
+/* collapse mobile nav on link click */
+document.querySelectorAll('#navList .nav-link').forEach(function(l){
+  l.addEventListener('click', function(){
+    var nav = document.getElementById('navMain');
+    if(nav.classList.contains('show')){
+      bootstrap.Collapse.getOrCreateInstance(nav).hide();
+    }
+  });
+});
+
+/* ---------- reveal on scroll ---------- */
+(function(){
+  var items = document.querySelectorAll('.reveal');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.15});
+  items.forEach(function(i){ io.observe(i); });
+})();
+
+/* ---------- animated counters ---------- */
+(function(){
+  var counters = document.querySelectorAll('[data-counter]');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting) return;
+      var el = e.target;
+      var target = parseFloat(el.getAttribute('data-target'));
+      var decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+      var dur = 1200, start = null;
+      function step(ts){
+        if(!start) start = ts;
+        var progress = Math.min((ts - start) / dur, 1);
+        var val = target * progress;
+        el.textContent = val.toFixed(decimals);
+        if(progress < 1) requestAnimationFrame(step);
+        else el.textContent = target.toFixed(decimals);
+      }
+      requestAnimationFrame(step);
+      io.unobserve(el);
+    });
+  }, {threshold:0.5});
+  counters.forEach(function(c){ io.observe(c); });
+})();
+
+/* ---------- language bar fill ---------- */
+(function(){
+  var bars = document.querySelectorAll('.lang-fill');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.style.width = e.target.getAttribute('data-fill') + '%';
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold:0.4});
+  bars.forEach(function(b){ io.observe(b); });
+})();
+
+/* ---------- skills tabs ---------- */
+(function(){
+  var tabs = document.querySelectorAll('#skillTabs .nav-link');
+  var panels = document.querySelectorAll('.skill-panel');
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){
+      tabs.forEach(function(x){ x.classList.remove('active'); });
+      t.classList.add('active');
+      var target = t.getAttribute('data-tab');
+      panels.forEach(function(p){
+        p.classList.toggle('d-none', p.getAttribute('data-panel') !== target);
+      });
+    });
+  });
+})();
+
+/* ---------- contact form ---------- */
+(function(){
+  var form = document.getElementById('contactForm');
+  var status = document.getElementById('form-status');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(!form.checkValidity()){
+      form.classList.add('was-validated');
+      status.textContent = 'Please fill in all fields.';
+      status.style.color = '#d9ac52';
+      return;
+    }
+    var name = document.getElementById('cf-name').value;
+    var email = document.getElementById('cf-email').value;
+    var subject = document.getElementById('cf-subject').value;
+    var message = document.getElementById('cf-message').value;
+    var body = encodeURIComponent('From: ' + name + ' (' + email + ')\n\n' + message);
+    var mailto = 'mailto:jannaessam61@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + body;
+    window.location.href = mailto;
+    status.textContent = 'Opening your email client...';
+    status.style.color = '#ece3cd';
+    form.reset();
+  });
+})();
+</script>
+</body>
+</html>
